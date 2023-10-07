@@ -1,0 +1,8 @@
+applications:
+    - name: space_test
+      host: space_test
+      command: npm run start
+      path: .
+      default-route: true
+      buildpack: https://github.com/cloudfoundry/nodejs-buildpack
+      memory: 128M

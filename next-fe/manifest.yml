@@ -1,0 +1,8 @@
+applications:
+    - name: communication_test
+      host: communication_test
+      path: .
+      command: npm run start
+      default-route: true
+      buildpack: https://github.com/cloudfoundry/nodejs-buildpack
+      memory: 128M

@@ -13,24 +13,24 @@ const AppRouterTest = () => {
 			<div className="container grid grid-cols-3 gap-4">
 				<div>
 					<TestColumn
-						endpoint={'https://api.publicapis.org/entries'}
 						title={'Fetch Space'}
+						scope={'space'}
 						data={spaceTimes}
 						setData={setSpaceTimes}
 					/>
 				</div>
 				<div>
 					<TestColumn
-						endpoint={'https://api.publicapis.org/entries'}
 						title={'Fetch Subaccount'}
+						scope={'subaccount'}
 						data={subaccountTimes}
 						setData={setSubaccountTimes}
 					/>
 				</div>
 				<div>
 					<TestColumn
-						endpoint={'https://api.publicapis.org/entries'}
 						title={'Fetch Region'}
+						scope={'region'}
 						data={regionTimes}
 						setData={setRegionTimes}
 					/>

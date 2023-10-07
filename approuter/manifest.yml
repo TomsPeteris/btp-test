@@ -1,0 +1,23 @@
+applications:
+    - name: approuter_test
+      host: approuter_test
+      path: .
+      default-route: true
+      buildpack: https://github.com/cloudfoundry/nodejs-buildpack
+      memory: 128M
+      env:
+          destinations: >
+              [
+                  {
+                      "name": "destination_space",
+                      "url": "https://space_test.cfapps.eu10.hana.ondemand.com"
+                  },
+                  {
+                      "name": "destination_subaccount",
+                      "url": "https://subaccount_test.cfapps.eu10.hana.ondemand.com"
+                  },
+                  {
+                      "name": "destination_region",
+                      "url": "https://region_test.cfapps.us10-001.hana.ondemand.com"
+                  }
+              ]

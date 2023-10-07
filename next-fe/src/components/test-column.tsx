@@ -1,27 +1,29 @@
 import React from 'react';
 import { Button } from './ui/button';
 
+interface TestResponse {
+	time: number;
+}
+
 const TestColumn: React.FC<{
-	endpoint: string;
 	title: string;
+	scope: string;
 	data: number[];
 	setData: React.Dispatch<React.SetStateAction<number[]>>;
-}> = ({ title, endpoint, data, setData }) => {
+}> = ({ title, scope, data, setData }) => {
 	const fetchEndpoint = async (
-		endpoint: string,
 		setTimes: React.Dispatch<React.SetStateAction<number[]>>
 	) => {
-		const start = new Date().getTime();
 		try {
-			await fetch(endpoint, {
-				method: 'GET',
-				mode: 'no-cors',
-				cache: 'no-cache',
-			});
-			const timeTaken = new Date().getTime() - start;
-			setTimes((times) => [...times, timeTaken]);
+			const response: Response = await fetch(`/api/test/${scope}/`);
+			if (!response.ok) {
+				console.log('Error fetching data from');
+			} else {
+				const data: TestResponse = await response.json();
+				setTimes((times) => [...times, data.time]);
+			}
 		} catch (error) {
-			console.error('Error fetching data from', endpoint, error);
+			console.error('Error fetching data', error);
 		}
 	};
 
@@ -31,16 +33,20 @@ const TestColumn: React.FC<{
 		return sum / times.length;
 	};
 
-	const triggerFetch = async () => {
-		for (let i = 0; i < 5; i++) {
-			await fetchEndpoint(endpoint, setData);
-		}
+	const triggerFetch = (counter: number) => {
+		fetchEndpoint(setData).then(() => {
+			setTimeout(() => {
+				if (counter < 20) {
+					triggerFetch(counter + 1);
+				}
+			}, 500);
+		});
 	};
 
 	return (
 		<>
 			<div className="flex justify-between">
-				<Button variant={'ghost'} onClick={triggerFetch}>
+				<Button variant={'ghost'} onClick={() => triggerFetch(0)}>
 					{title}
 				</Button>
 				<span className="self-center">
