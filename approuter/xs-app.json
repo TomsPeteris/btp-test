@@ -9,7 +9,7 @@
 		{
 			"source": "^/subaccount/(.*)$",
 			"target": "$1",
-			"destination": "destination_subaccount"
+			"destination": "subaccount"
 		},
 		{
 			"source": "^/region/(.*)$",
